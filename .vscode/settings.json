@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "udp.h": "c",
+        "inet.h": "c",
+        "default_logger.h": "c"
+    }
+}
