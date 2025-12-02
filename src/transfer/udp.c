@@ -60,7 +60,7 @@ void udp_server_destroy(udp_server_t *server){
 void udp_server_run(udp_server_t *server){
     if(server->logger) server->logger("UDP Server is running");
 
-    char buffer[256];
+    char buffer[1024 * 64]; // 64 KB maximum body payload
 
     while(1) {
         struct sockaddr_in addr;
