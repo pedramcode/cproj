@@ -11,6 +11,7 @@
         "cstdint": "cpp",
         "packet.h": "c",
         "stdio.h": "c",
-        "stdint.h": "c"
+        "stdint.h": "c",
+        "stdlib.h": "c"
     }
 }

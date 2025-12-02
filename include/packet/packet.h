@@ -2,6 +2,7 @@
 #define PACKET_PACKET_H
 
 #include <stdint.h>
+#include <stdlib.h>
 
 typedef struct {
     uint8_t version;
@@ -13,6 +14,7 @@ typedef struct {
     char *payload;
 } packet_t;
 
-void packet_from_bytes(packet_t **packet, char *bytes);
+void packet_from_bytes(packet_t **packet, char *bytes, size_t len);
+size_t packet_to_bytes(packet_t *packet, char **output);
 
 #endif // PACKET_PACKET_H
