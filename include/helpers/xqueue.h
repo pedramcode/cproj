@@ -14,6 +14,7 @@ typedef struct {
     xquque_node_t *head;
     xquque_node_t *tail;
     pthread_mutex_t lock;
+    pthread_cond_t cond;
 } xqueue_t;
 
 void xqueue_new(xqueue_t **queue);

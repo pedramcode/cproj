@@ -3,6 +3,8 @@
         "udp.h": "c",
         "inet.h": "c",
         "default_logger.h": "c",
-        "malloc.h": "c"
+        "malloc.h": "c",
+        "xqueue.h": "c",
+        "socket.h": "c"
     }
 }
