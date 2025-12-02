@@ -5,6 +5,11 @@
         "default_logger.h": "c",
         "malloc.h": "c",
         "xqueue.h": "c",
-        "socket.h": "c"
+        "socket.h": "c",
+        "node.h": "c",
+        "string.h": "c",
+        "cstdint": "cpp",
+        "packet.h": "c",
+        "stdio.h": "c"
     }
 }

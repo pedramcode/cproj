@@ -76,10 +76,6 @@ void udp_server_run(udp_server_t *server){
             memcpy(req->data, buffer, n);
 
             xqueue_enqueue(server->queue, req);
-
-            if(server->logger) {
-                server->logger("Enqueued UDP request of %d bytes", n);
-            }
         }
     }
 }

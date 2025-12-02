@@ -3,6 +3,7 @@ CC := gcc
 CC_FLAGS := -Wall -Werror -Wextra -g
 ASM := nasm
 ASM_FLAGS := -felf64
+DEPFLAGS := -MMD -MP
 
 SRC_DIR := ./src
 INCLUDE_DIR := ./include
@@ -26,7 +27,7 @@ $(TARGET): $(OBJECTS)
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CC_FLAGS) $(INCLUDE_FLAGS) -c $< -o $@
+	$(CC) $(CC_FLAGS) $(INCLUDE_FLAGS) $(DEPFLAGS) -c $< -o $@
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.asm
 	@mkdir -p $(dir $@)
@@ -48,3 +49,5 @@ valgrind: $(TARGET)
 	valgrind $(TARGET)
 
 .PHONY: run clean debug rebuild valgrind
+
+-include $(OBJECTS:.o=.d)

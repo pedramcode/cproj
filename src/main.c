@@ -1,10 +1,12 @@
-#include "transfer/udp.h"
-#include "helpers/default_logger.h"
+#include <stdio.h>
+#include "node/node.h"
 
 int main(){
-    udp_server_t *server;
-    udp_server_new(&server, 1998, default_logger);
-    udp_server_run(server);
-    udp_server_destroy(server);
+    node_t *node;
+    node_config_t cfg;
+    cfg.port = 1998;
+    node_new(&node, cfg);
+    node_start(node);
+    node_destroy(node);
     return 0;
 }
