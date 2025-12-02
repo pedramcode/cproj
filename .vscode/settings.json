@@ -10,6 +10,7 @@
         "string.h": "c",
         "cstdint": "cpp",
         "packet.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "stdint.h": "c"
     }
 }
