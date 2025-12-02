@@ -44,4 +44,7 @@ clean:
 debug: $(TARGET)
 	gdb $(TARGET)
 
-.PHONY: run clean debug rebuild
+valgrind: $(TARGET)
+	valgrind $(TARGET)
+
+.PHONY: run clean debug rebuild valgrind
