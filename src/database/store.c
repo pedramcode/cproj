@@ -41,10 +41,8 @@ void kv_store_put(kv_store_t *store, char *key, size_t key_size, char *data, siz
     
     pthread_mutex_lock(&store->bucket_locks[bucket_index]);
     if(store->buckets[bucket_index] == NULL) {
-        printf("FIRST TIME\n");
         kv_entry_new(&store->buckets[bucket_index], result, data, data_length, NULL);
     } else {
-        printf("NEXT TIME\n");
         kv_entry_t *node = store->buckets[bucket_index];
         while(1) {
             if(memcmp(result, node->key.key, 20) == 0) {
