@@ -94,3 +94,19 @@ void kv_entry_destroy(kv_entry_t *entry) {
     free(entry->data);
     free(entry);
 }
+
+void kv_store_destroy(kv_store_t *store) {
+    for(size_t i = 0; i < store->bucket_count; i++) {
+        kv_entry_t *e = store->buckets[i];
+        while(e != NULL) {
+            kv_entry_t *p = e;
+            e = e->next;
+            kv_entry_destroy(p);
+        }
+        pthread_mutex_destroy(&store->bucket_locks[i]);
+    }
+
+    free(store->bucket_locks);
+    free(store->buckets);
+    free(store);
+}

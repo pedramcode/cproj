@@ -28,5 +28,6 @@ void kv_entry_destroy(kv_entry_t *entry);
 void kv_store_new(kv_store_t **store, size_t bucket_count);
 void kv_store_put(kv_store_t *store, char *key, size_t key_size, char *data, size_t data_length);
 size_t kv_store_get(kv_store_t *store, char *key, size_t key_size, char **output);
+void kv_store_destroy(kv_store_t *store);
 
 #endif // DATABASE_BUCKET_H

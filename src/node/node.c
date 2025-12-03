@@ -6,6 +6,8 @@
 #include "helpers/network.h"
 #include "helpers/sha1.h"
 
+#define BUCKETS 1024
+
 void node_new(node_t **node, node_config_t config){
     (*node) = malloc(sizeof(node_t));
     udp_server_new(&(*node)->server, config.port, default_logger);
@@ -25,6 +27,7 @@ void node_new(node_t **node, node_config_t config){
         sprintf( ( (*node)->hash_hex_string + (2*offset)), "%02x", result[offset]&0xff);
     }
     if ((*node)->server->logger) (*node)->server->logger("Node is ready [%s]", (*node)->hash_hex_string);
+    kv_store_new(&(*node)->storage, BUCKETS);
 }
 
 void node_start(node_t *node){
@@ -33,6 +36,7 @@ void node_start(node_t *node){
 
 void node_destroy(node_t *node){
     udp_server_destroy(node->server);
+    kv_store_destroy(node->storage);
     free(node->hash_hex_string);
     free(node->hash);
     free(node);
