@@ -16,5 +16,6 @@ typedef struct {
 
 void packet_from_bytes(packet_t **packet, char *bytes, size_t len);
 size_t packet_to_bytes(packet_t *packet, char **output);
+void packet_destroy(packet_t *packet);
 
 #endif // PACKET_PACKET_H

@@ -82,3 +82,10 @@ size_t packet_to_bytes(packet_t *packet, char **output) {
 
     return 46 + packet->payload_len;
 }
+
+void packet_destroy(packet_t *packet) {
+    if(packet->payload) {
+        free(packet->payload);
+    }
+    free(packet);
+}
