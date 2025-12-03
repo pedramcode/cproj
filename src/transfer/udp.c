@@ -3,7 +3,7 @@
 #include <malloc.h>
 #include <fcntl.h>
 
-#define WORKERS 16
+#define WORKERS 8
 void* __worker_function();
 
 void udp_server_new(udp_server_t **server, int port, void (*logger) (const char* fmt, ...)){
