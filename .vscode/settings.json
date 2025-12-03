@@ -12,6 +12,10 @@
         "packet.h": "c",
         "stdio.h": "c",
         "stdint.h": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "stddef.h": "c",
+        "sha1.h": "c",
+        "store.h": "c",
+        "memory.h": "c"
     }
 }
