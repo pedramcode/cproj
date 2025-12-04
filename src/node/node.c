@@ -6,6 +6,7 @@
 #include "helpers/network.h"
 #include "helpers/sha1.h"
 #include "node/request_handler.h"
+#include "helpers/convert.h"
 
 #define BUCKETS 1024
 
@@ -21,15 +22,17 @@ void node_new(node_t **node, node_config_t config){
 
     char *result = malloc(sizeof(char) * 20);
     SHA1(result, mac_port, strlen(mac_port));
-    (*node)->hash = result;
+    memcpy((*node)->hash, result, 20);
 
-    (*node)->hash_hex_string = malloc(sizeof(char) * 41);
-    size_t offset;
-    for( offset = 0; offset < 20; offset++) {
-        sprintf( ( (*node)->hash_hex_string + (2*offset)), "%02x", result[offset]&0xff);
-    }
+    char *string_hash;
+    cvt_sha1_to_string(result, &string_hash);
+    sprintf((*node)->hash_hex_string, "%s", string_hash);
+    free(string_hash);
+
     if ((*node)->server->logger) (*node)->server->logger("Node is ready [%s]", (*node)->hash_hex_string);
     kv_store_new(&(*node)->storage, BUCKETS);
+
+    free(result);
 }
 
 void node_start(node_t *node){
@@ -39,7 +42,5 @@ void node_start(node_t *node){
 void node_destroy(node_t *node){
     udp_server_destroy(node->server);
     kv_store_destroy(node->storage);
-    free(node->hash_hex_string);
-    free(node->hash);
     free(node);
 }

@@ -6,8 +6,8 @@
 
 typedef struct {
     udp_server_t *server;
-    char* hash;
-    char* hash_hex_string;
+    char hash[20];
+    char hash_hex_string[41];
     kv_store_t *storage;
 } node_t;
 

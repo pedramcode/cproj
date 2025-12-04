@@ -5,17 +5,24 @@
 #include <stdlib.h>
 
 typedef struct {
-    uint8_t version;
-    uint8_t type;
+    uint8_t  version;
+    uint8_t  type;
     uint16_t req_id;
-    char sender_node_hash[20];
-    char receiver_node_hash[20];
+    char     sender_node_hash[20];
     uint16_t payload_len;
-    char *payload;
+    char    *payload;
 } packet_t;
 
-void packet_from_bytes(packet_t **packet, char *bytes, size_t len);
-size_t packet_to_bytes(packet_t *packet, char **output);
+/* Deserialize bytes into a packet_t. On failure, *packet becomes NULL. */
+void packet_from_bytes(packet_t **packet, const char *bytes, size_t len);
+
+/* Serialize packet_t into bytes. Returns total size written. */
+size_t packet_to_bytes(const packet_t *packet, char **output);
+
+/* Free internal memory of packet */
 void packet_destroy(packet_t *packet);
+
+/* Produce a printable string representation (debugging use). */
+void packet_to_string(const packet_t *packet, char **output);
 
 #endif // PACKET_PACKET_H
