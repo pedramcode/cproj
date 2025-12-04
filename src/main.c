@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "node/node.h"
 
-int main(int argc, char **argv){
+int main(){
     // setup node
     node_t *node;
     node_config_t cfg;

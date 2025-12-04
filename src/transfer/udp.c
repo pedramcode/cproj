@@ -19,6 +19,8 @@ void udp_server_new(udp_server_t **server, int port, void (*logger) (const char*
     servaddr.sin_port = htons(port);
     servaddr.sin_family = AF_INET;
 
+    (*server)->request_handler = NULL;
+
     bind((*server)->fd, (struct sockaddr*)&servaddr, sizeof(servaddr));
     if(logger) logger("UDP Server initialized [::]:%d", port);
     (*server)->logger = logger;
@@ -39,7 +41,16 @@ void* __worker_function(void *server_ptr){
         xqueue_dequeue(server->queue, (void**)&req);
 
         if(req) {
-            // Do work ...
+            char *output = NULL;
+
+            if(server->request_handler != NULL){
+                size_t len = server->request_handler(req->data, req->data_length, &output);
+                sendto(server->fd, output, len, 0, (struct sockaddr*) &req->addr, sizeof(req->addr));
+            }
+            
+            if(output != NULL){
+                free(output);
+            }
             free(req->data);
             free(req);
         }
@@ -78,4 +89,8 @@ void udp_server_run(udp_server_t *server){
             xqueue_enqueue(server->queue, req);
         }
     }
+}
+
+void udp_server_set_request_handler(udp_server_t *server, size_t (*request_handler) (char* data, size_t data_length, char **output)){
+    server->request_handler = request_handler;
 }
