@@ -1,8 +1,14 @@
 #ifndef PACKET_TYPES_H
 #define PACKET_TYPES_H
 
+/// @brief packet command type
 typedef enum {
-    PACKTYP_HELLO = 1,
+    /// @brief first message for handshaking process
+    CMD_HELLO = 1,
+    /// @brief response of hello, send back to new node from seed node (bootstrapping node)
+    CMD_WELCOME,
+    /// @brief update other nodes about network, environment or changes
+    CMD_UPDATE,
 } packet_type_t;
 
 #endif // PACKET_TYPES_H

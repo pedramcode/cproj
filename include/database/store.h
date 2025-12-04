@@ -4,11 +4,13 @@
 #include <pthread.h>
 #include <stddef.h>
 
+/// @brief key of record in hash table
 typedef struct {
     char key[20];
 } kv_key_t;
 
 struct kv_entry_t;
+/// @brief a single entry of hash table in key:value format
 struct kv_entry_t {
     kv_key_t key;
     size_t data_length;
@@ -17,6 +19,7 @@ struct kv_entry_t {
 };
 typedef struct kv_entry_t kv_entry_t;
 
+/// @brief main storage structure, which stores hash table data in "buckets" or batches. each bucket has it's own lock.
 typedef struct {
     kv_entry_t **buckets;
     pthread_mutex_t *bucket_locks;
