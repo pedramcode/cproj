@@ -10,9 +10,14 @@ struct xquque_node_t {
 };
 typedef struct xquque_node_t xquque_node_t;
 
+typedef struct xqueue_node_t {
+    void *data;
+    struct xqueue_node_t *next;
+} xqueue_node_t;
+
 typedef struct {
-    xquque_node_t *head;
-    xquque_node_t *tail;
+    xqueue_node_t *head;
+    xqueue_node_t *tail;
     pthread_mutex_t lock;
     pthread_cond_t cond;
 } xqueue_t;
