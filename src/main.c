@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include "node/node.h"
 
-int main(){
+int main(int argc, char **argv){
+    // setup node
     node_t *node;
     node_config_t cfg;
     cfg.port = 1998;
