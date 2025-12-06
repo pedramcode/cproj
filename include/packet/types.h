@@ -11,6 +11,8 @@ typedef enum {
     CMD_UPDATE,
     /// @brief represents occured error (mainly use as response)
     CMD_ERROR,
+    /// @brief ping command for healthcheck
+    CMD_PING,
 } packet_type_t;
 
 #endif // PACKET_TYPES_H
