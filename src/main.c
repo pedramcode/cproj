@@ -1,4 +1,5 @@
 #include <signal.h>
+#include <stdio.h>
 
 #include "core/global.h"
 #include "core/args.h"
@@ -8,10 +9,12 @@
 int main(int argc, char **argv){
     // config
     process_args(argc, argv);
+    
     // setup signal handers
     signal(SIGINT, signal_handler);
     signal(SIGQUIT, signal_handler);
     signal(SIGTERM, signal_handler);
+
     // setup node
     node_t *node;
     node_config_t cfg;
@@ -20,5 +23,6 @@ int main(int argc, char **argv){
     global_node = node;
     node_start(node);
     node_destroy(node);
+
     return 0;
 }
