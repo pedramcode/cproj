@@ -1,4 +1,4 @@
-# Project Name
+# C distributed hash table (CDHT)
 
 *A High-Performance Distributed Key–Value Node with Custom Networking and Hashing*
 
