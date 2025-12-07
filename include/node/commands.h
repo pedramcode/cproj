@@ -3,6 +3,6 @@
 
 #include "packet/packet.h"
 
-void command_ping(packet_t *packet, char **output);
+size_t command_ping(packet_t *packet, char **output);
 
 #endif // NODE_COMMANDS_PING_H

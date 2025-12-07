@@ -1,8 +1,12 @@
 #include "packet/packet.h"
 
+#include <malloc.h>
+#include <memory.h>
 #include <stdio.h>
 #include <string.h>
 #include <arpa/inet.h>
+
+#include "core/global.h"
 #include "helpers/convert.h"
 
 void packet_from_bytes(packet_t **packet, const char *bytes, size_t len) {
@@ -113,4 +117,17 @@ void packet_to_string(const packet_t *packet, char **output) {
 
     free(sender_hash_output);
     free(payload_output);
+}
+
+
+void packet_new(uint8_t version, packet_type_t type, uint16_t req_id, char *payload, uint16_t payload_length, packet_t **output_packet) {
+    *output_packet = malloc(sizeof(packet_t));
+    packet_t *p = (*output_packet);
+    p->version = version;
+    p->type = type;
+    p->req_id = req_id;
+    p->payload = malloc(payload_length);
+    p->payload_len = payload_length;
+    memcpy(p->payload, payload, payload_length);
+    memcpy(p->sender_node_hash, global_node->hash, 20);
 }

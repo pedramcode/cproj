@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 #include <stdlib.h>
+#include "packet/types.h"
 
 typedef struct {
     uint8_t  version;
@@ -24,5 +25,7 @@ void packet_destroy(packet_t *packet);
 
 /* Produce a printable string representation (debugging use). */
 void packet_to_string(const packet_t *packet, char **output);
+
+void packet_new(uint8_t version, packet_type_t type, uint16_t req_id, char *payload, uint16_t payload_length, packet_t **output_packet);
 
 #endif // PACKET_PACKET_H

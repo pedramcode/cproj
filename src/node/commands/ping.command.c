@@ -1,16 +1,13 @@
-#include "commands.h"
+#include "node/commands.h"
 
 #include <malloc.h>
 #include <string.h>
 
-void command_ping(packet_t *packet, char **output) {
-    packet_t *p = malloc(sizeof(packet_t));
-    p->req_id = packet->req_id;
-    p->type = packet->type;
-    p->version = 1;
+size_t command_ping(packet_t *packet, char **output) {
+    packet_t *p;
     char *pong = "PONG";
-    p->payload = malloc(strlen(pong) - 1);
-    memcpy(p->payload, pong, strlen(pong) - 1);
-    p->payload_len = strlen(pong) - 1;
-    return packet_to_bytes(p, output);
+    packet_new(1, CMD_ERROR, packet->req_id, pong, strlen(pong), &p);
+    size_t len = packet_to_bytes(p, output);
+    packet_destroy(p);
+    return len;
 }
