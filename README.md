@@ -318,4 +318,4 @@ It is recommended to review commit history for previous README update patterns b
 
 ## License
 
-Specify the project license here (MIT, Apache 2.0, GPLv3, or custom). If no license is selected yet, include a placeholder and update before any public release.
+?
