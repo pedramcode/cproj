@@ -1,26 +1,26 @@
 #include <stdio.h>
 #include <string.h>
+#include <openssl/rand.h>
 
-int get_mac_address_sysfs(const char *iface, char mac[18]) {
-    char path[128];
-    FILE *fp;
+int load_or_generate_node_id(uint8_t id[20], const char* filename) {
+    FILE *fp = fopen(filename, "rb");
 
-    snprintf(path, sizeof(path), "/sys/class/net/%s/address", iface);
-
-    fp = fopen(path, "r");
-    if (!fp)
-        return -1;
-
-    if (!fgets(mac, 18, fp)) {
+    if (fp != NULL) {
+        size_t r = fread(id, 1, 20, fp);
         fclose(fp);
-        return -1;
+        if (r == 20) return 0;
     }
 
-    fclose(fp);
+    // Generate a secure 160-bit random ID
+    if (RAND_bytes(id, 20) != 1) {
+        return -1; // crypto error
+    }
 
-    size_t len = strlen(mac);
-    if (len > 0 && mac[len - 1] == '\n')
-        mac[len - 1] = '\0';
+    // Persist it
+    fp = fopen(filename, "wb");
+    if (!fp) return -1;
+    fwrite(id, 1, 20, fp);
+    fclose(fp);
 
     return 0;
 }

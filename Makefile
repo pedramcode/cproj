@@ -10,7 +10,7 @@ INCLUDE_DIR := ./include
 BUILD_DIR := ./build
 EXE := main.out
 TARGET := $(BUILD_DIR)/$(EXE)
-LIBS := pthread
+LIBS := pthread crypto ssl
 LIBS_FLAGS := $(addprefix -l, $(LIBS))
 main: $(TARGET) # default command
 
@@ -23,7 +23,7 @@ INCLUDE_FLAGS = $(addprefix -I, $(INCLUDE_DIR))
 
 $(TARGET): $(OBJECTS)
 	@mkdir -p $(dir $@)
-	$(CC) $(CC_FLAGS) $(LIBS_FLAGS) $^ -o $@
+	$(CC) $(CC_FLAGS) $^ -o $@ $(LIBS_FLAGS)
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)

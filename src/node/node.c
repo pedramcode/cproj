@@ -15,13 +15,11 @@ void node_new(node_t **node, node_config_t config){
     udp_server_new(&(*node)->server, config.port, default_logger);
     udp_server_set_request_handler((*node)->server, node_request_handler);
 
-    char mac[18];
-    get_mac_address_sysfs("eth0", mac);
-    char mac_port[64];
-    sprintf(mac_port, "%s:%d", mac, config.port);
+    uint8_t node_id[20];
+    load_or_generate_node_id(node_id, "node_id.bin");
 
     char *result = malloc(sizeof(char) * 20);
-    SHA1(result, mac_port, strlen(mac_port));
+    SHA1(result, (const char*) node_id, 20);
     memcpy((*node)->hash, result, 20);
 
     char *string_hash;
