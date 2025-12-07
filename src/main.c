@@ -1,10 +1,13 @@
 #include <signal.h>
 
 #include "core/global.h"
+#include "core/args.h"
 #include "core/signal.h"
 #include "node/node.h"
 
-int main(){
+int main(int argc, char **argv){
+    // config
+    process_args(argc, argv);
     // setup signal handers
     signal(SIGINT, signal_handler);
     signal(SIGQUIT, signal_handler);

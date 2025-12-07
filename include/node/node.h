@@ -3,9 +3,11 @@
 
 #include "database/store.h"
 #include "transfer/udp.h"
+#include "transfer/udp_client.h"
 
 typedef struct {
     udp_server_t *server;
+    udp_client_t *client;
     char hash[20];
     char hash_hex_string[41];
     kv_store_t *storage;

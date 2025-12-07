@@ -15,6 +15,8 @@ void node_new(node_t **node, node_config_t config){
     udp_server_new(&(*node)->server, config.port, default_logger);
     udp_server_set_request_handler((*node)->server, node_request_handler);
 
+    udp_client_new(&(*node)->client, 1500);
+
     uint8_t node_id[20];
     load_or_generate_node_id(node_id, "node_id.bin");
 
@@ -39,6 +41,7 @@ void node_start(node_t *node){
 
 void node_destroy(node_t *node){
     udp_server_destroy(node->server);
+    udp_client_destroy(node->client);
     kv_store_destroy(node->storage);
     free(node);
 }
