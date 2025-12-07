@@ -1,8 +1,14 @@
-#include <stdio.h>
+#include <signal.h>
+
 #include "core/global.h"
+#include "core/signal.h"
 #include "node/node.h"
 
 int main(){
+    // setup signal handers
+    signal(SIGINT, signal_handler);
+    signal(SIGQUIT, signal_handler);
+    signal(SIGTERM, signal_handler);
     // setup node
     node_t *node;
     node_config_t cfg;
