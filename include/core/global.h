@@ -2,6 +2,7 @@
 #define CORE_GLOBAL_H
 
 #include "node/node.h"
+#include "core/config.h"
 
 typedef enum {
     NODEST_RUNNING = 1,
@@ -10,5 +11,6 @@ typedef enum {
 
 extern node_t *global_node;
 extern node_state global_state;
+extern config_t global_config;
 
 #endif // CORE_GLOBAL_H

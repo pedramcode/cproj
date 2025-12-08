@@ -35,7 +35,7 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.asm
 
 # ============ PHONY ============
 run: $(TARGET)
-	$(TARGET)
+	$(TARGET) $(CONFIG)
 
 rebuild: clean $(TARGET)
 

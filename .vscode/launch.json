@@ -6,7 +6,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceRoot}/build/main.out",
-            "args": [],
+            "args": ["./sample_config.ini"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

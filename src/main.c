@@ -18,7 +18,7 @@ int main(int argc, char **argv){
     // setup node
     node_t *node;
     node_config_t cfg;
-    cfg.port = 1998;
+    cfg.port = global_config.port;
     node_new(&node, cfg);
     global_node = node;
     node_start(node);
