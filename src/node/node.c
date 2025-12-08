@@ -7,6 +7,7 @@
 #include "helpers/sha1.h"
 #include "node/request_handler.h"
 #include "helpers/convert.h"
+#include "node/commands.h"
 
 #define BUCKETS 1024
 
@@ -31,6 +32,8 @@ void node_new(node_t **node, node_config_t config){
 
     if ((*node)->server->logger) (*node)->server->logger("Node is ready [%s]", (*node)->hash_hex_string);
     kv_store_new(&(*node)->storage, BUCKETS);
+
+    load_commands();
 
     free(result);
 }

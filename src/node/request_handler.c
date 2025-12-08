@@ -15,7 +15,7 @@
 /// @param output result of processing packet
 /// @return size of output
 size_t node_request_handler(char* data, size_t data_length, char **output) {
-    packet_t *packet;
+    packet_t *packet = NULL;
     packet_from_bytes(&packet, data, data_length);
 
     size_t len = 0;
@@ -27,16 +27,7 @@ size_t node_request_handler(char* data, size_t data_length, char **output) {
         goto end;
     }
 
-    switch(packet->type) {
-        case CMD_PING: { len = command_ping(packet, output); break; }
-        default: {
-            packet_t *p;
-            packet_new(1, CMD_ERROR, 0, NULL, 0, &p);
-            packet_to_bytes(p, output);
-            packet_destroy(p);
-            goto end;
-        }
-    }
+    len = COMMAND_DISPATCHER[packet->type](packet, output);
 
     end:
     packet_destroy(packet);
