@@ -15,7 +15,7 @@ static int handler(void* user, const char* section, const char* name,
     cfg->port = 1998;
 
     #define MATCH(s, n) strcmp(section, s) == 0 && strcmp(name, n) == 0
-    if (MATCH("SERVER", "port")) {
+    if (MATCH("SERVER", "PORT")) {
         cfg->port = atoi(value);
     // } else if (MATCH("user", "name")) {
     //     pconfig->name = strdup(value);
