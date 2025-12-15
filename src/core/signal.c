@@ -11,7 +11,7 @@ void signal_handler(int sig) {
     global_state = NODEST_STOPPING;
     char *m1 = "\n";
     write(STDOUT_FILENO, m1, strlen(m1));
-    char *m2 = "Gracefuly shutting down node...\n";
+    char *m2 = "Gracefully shutting down node...\n";
     write(STDOUT_FILENO, m2, strlen(m2));
     sleep(3);
     exit(sig);
