@@ -13,6 +13,6 @@ void signal_handler(int sig) {
     write(STDOUT_FILENO, m1, strlen(m1));
     char *m2 = "Gracefully shutting down node...\n";
     write(STDOUT_FILENO, m2, strlen(m2));
-    sleep(3);
+    sleep(1);
     exit(sig);
 }
