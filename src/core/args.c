@@ -93,12 +93,3 @@ void process_args(int argc, char **argv) {
 
     fclose(file);
 }
-
-// Optional: Add a cleanup function to free allocated memory
-void cleanup_config(config_t *cfg) {
-    if (cfg->seed_nodes != NULL) {
-        free(cfg->seed_nodes);
-        cfg->seed_nodes = NULL;
-        cfg->seed_nodes_count = 0;
-    }
-}
