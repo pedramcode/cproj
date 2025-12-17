@@ -8,12 +8,13 @@
 #include "node/request_handler.h"
 #include "helpers/convert.h"
 #include "node/commands.h"
+#include "core/global.h"
 
 #define BUCKETS 1024
 
 void node_new(node_t **node, node_config_t config){
     (*node) = malloc(sizeof(node_t));
-    udp_server_new(&(*node)->server, config.port, default_logger);
+    udp_server_new(&(*node)->server, config.port);
     udp_server_set_request_handler((*node)->server, node_request_handler);
 
     udp_client_new(&(*node)->client, 1500);
@@ -30,7 +31,7 @@ void node_new(node_t **node, node_config_t config){
     sprintf((*node)->hash_hex_string, "%s", string_hash);
     free(string_hash);
 
-    if ((*node)->server->logger) (*node)->server->logger("Node is ready [%s]", (*node)->hash_hex_string);
+    globall_logger("Node is ready [%s]", (*node)->hash_hex_string);
     kv_store_new(&(*node)->storage, BUCKETS);
 
     load_commands();

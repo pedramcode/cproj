@@ -3,10 +3,12 @@
 #include <malloc.h>
 #include <fcntl.h>
 
+#include "core/global.h"
+
 #define WORKERS 8
 void* __worker_function();
 
-void udp_server_new(udp_server_t **server, int port, void (*logger) (const char* fmt, ...)){
+void udp_server_new(udp_server_t **server, int port){
     *server = malloc(sizeof(udp_server_t));
     (*server)->port = port;
 
@@ -22,8 +24,7 @@ void udp_server_new(udp_server_t **server, int port, void (*logger) (const char*
     (*server)->request_handler = NULL;
 
     bind((*server)->fd, (struct sockaddr*)&servaddr, sizeof(servaddr));
-    if(logger) logger("UDP Server initialized [::]:%d", port);
-    (*server)->logger = logger;
+    globall_logger("UDP Server initialized [::]:%d", port);
 
     xqueue_new(&(*server)->queue);
 
@@ -69,7 +70,7 @@ void udp_server_destroy(udp_server_t *server){
 }
 
 void udp_server_run(udp_server_t *server){
-    if(server->logger) server->logger("UDP Server is running");
+    globall_logger("UDP Server is running");
 
     char buffer[1024 * 64]; // 64 KB maximum body payload
 

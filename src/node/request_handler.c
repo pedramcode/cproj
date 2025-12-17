@@ -27,7 +27,11 @@ size_t node_request_handler(char* data, size_t data_length, char **output) {
         goto end;
     }
 
+    char *packet_str = NULL;
+    packet_to_string(packet, &packet_str);
+    globall_logger("received packet [%s]", packet_str);
     len = COMMAND_DISPATCHER[packet->type](packet, output);
+    free(packet_str);
 
     end:
     packet_destroy(packet);

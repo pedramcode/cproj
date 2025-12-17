@@ -2,6 +2,7 @@
 #define CORE_GLOBAL_H
 
 #include "node/node.h"
+#include "node/lookup_table.h"
 #include "core/config.h"
 
 typedef enum {
@@ -12,5 +13,7 @@ typedef enum {
 extern node_t *global_node;
 extern node_state global_state;
 extern config_t global_config;
+extern lookup_table_t *global_lookup;
+extern void (*globall_logger)(const char* fmt, ...);
 
 #endif // CORE_GLOBAL_H
